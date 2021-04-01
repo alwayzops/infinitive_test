@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	.container{
+		display: flex;
+		width: 100%;
+		min-width: 600px;
+	}
+	.container>div{
+		border: 1px solid black;
+		height: 300px;
+		flex: 1;
+	}
+	.container .left{
+		max-width: 200px;
+	}
+	.container .right{
+		max-width: 300px;
+	}
+</style>
+<script type="text/javascript">
+	getExpectNumber = function(val){
+		val = Math.round(val)
+		if(val<0){
+			result = 1;
+		}else{
+			result = val
+		}
+		return val
+	}
+	onchangeCalculate = function(){
+		let test = document.getElementById('test').value
+		calculate(test);
+	}
+	calculate = function(val){
+		let number = getExpectNumber(val)
+		let type = document.getElementById('type').value
+		let result = false;
+		if(type == 0){
+			console.log("isPrime")
+			result = isPrime(number)
+		}else{
+			console.log("isFibonacci")
+			result = isFibonacci(number)
+		}
+
+		let  text_result = result ? "true":"false"
+		document.querySelector('.right').innerHTML = text_result
+	}
+
+	function isPerfectSquare( x)
+	{
+	    let s = parseInt(Math.sqrt(x));
+	    return (s * s == x);
+	}
+	 
+	function isFibonacci( n)
+	{
+	    return isPerfectSquare(5 * n * n + 4) ||
+	           isPerfectSquare(5 * n * n - 4);
+	}
+
+	function isPrime(num) {
+	  for(var i = 2; i < num; i++)
+	    if(num % i === 0) return false;
+	  return num > 1;
+	}
+</script>
+<body>
+	<div class="container">
+		<div class="left">
+			<input type="number" id="test" onchange='onchangeCalculate()'>
+		</div>
+		<div class="middle">
+			<select id="type" onchange='onchangeCalculate()'>
+				<option value="0">isPrime</option>
+				<option value="1">isFibonacci</option>
+			</select>
+		</div>
+		<div class="right"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+	.match{
+		display: block;
+	}
+	.notmatch{
+		display: none;
+	}
+</style>
+<script type="text/javascript">
+
+	createCategory()
+	async function createCategory() {
+	    let response = await fetch('https://api.publicapis.org/categories').then(res => res.json())
+	    let table = document.getElementById('categories')
+	    for(let i in response){
+	    	let tr = document.createElement('tr')
+	    	tr.innerHTML = response[i]
+	    	table.appendChild(tr)
+	    }
+	    
+	}
+
+	filter = function(value){
+		let rows = document.querySelectorAll('table tr')
+		value = value.toLowerCase(value)
+		var patt = new RegExp(value);
+		for(let i in rows){
+			let str = rows[i].innerHTML
+			if(str){
+				str = str.toLowerCase(str)
+				let res = patt.test(str);
+				if(res){
+					rows[i].className = 'match'
+				}else{
+					rows[i].className = 'notmatch'
+
+				}
+			}
+		}
+	}
+</script>
+<body>
+	<div class="container" id="container">
+		<input type="text" name="filter" onkeyup='filter(this.value)'>
+		<table id="categories"></table>
+	</div>
+</body>
+</html>
