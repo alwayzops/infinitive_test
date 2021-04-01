@@ -14,8 +14,6 @@ function doRequest() {
 		  }
 		};
 
-		
-
 		http.get(options, function(res){
 		  res.setEncoding('utf8');
 		  res.on('data', (chunk) => {
@@ -40,17 +38,13 @@ app.on('request', async (req, res) => {
 	let wholeBody = await doRequest();
 	let reg_val = '(?<='+processType+'\\<\\/td\\>\\<td\\>)(.+?)(?=\\<\\/td\\>)'
     let re = new RegExp(reg_val);
-    console.log(re)
     let val = wholeBody.match(re)
     let result_val = 'no_data';
     if( val && val.length > 0){
-    	console.log(val)
 	    result_val = val[0];
     }
 
     res.end(result_val);
 });
 
-// Start the server on port 3000
 app.listen(3000, 'localhost');
-console.log('Node server running on port 3000');
